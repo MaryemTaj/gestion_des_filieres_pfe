@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire d'insertion des patients</title>
+ </head>
+<body >
+<div layout:fragment="content" >
+<div class="container mt-5 col-md-6">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header">
+Formulaire d'ajout
+
+</div>
+<div class="card-body">
+<form th:action="@{/editFiliere/__${fil.id}__}" method="POST" class="needs-validation" th:object="${fil}">
+<input type="hidden" class="form-control" id="id"  th:field="*{id}" th:value="${fil.id}" placeholder="id" required>
+  <div class="form-group">
+    <label for="departement">Departement</label>
+      <select id="departement" class="form-control" th:field="*{dept}">
+        <th:block th:each="d:${departements}">
+        <option th:text="${d.nom}" th:value="${d.id}">
+        </option>
+        </th:block>
+        
+      </select>
+      <span th:error="*{dept}"></span>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="NomFiliere">Noml</label>
+      <input type="text" class="form-control" id="NomFiliere" th:field="*{nom}" placeholder="Nom" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="cycle">Cycle</label>
+     <select id="departement" class="form-control" th:field="*{cyc}" required>
+        <th:block th:each="d:${cycles}">
+        <option th:text="${d.nom}" th:value="${d.id}">
+        
+        
+        </option>
+        </th:block>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="dateCreation">Date de creation</label>
+    <input type="date" required class="form-control" id="dateCreation" th:field="*{dateCreation}" placeholder="Date de Creation">
+  </div>
+  <div class="form-group">
+    <label for="modules">Modules</label>
+    <select multiple class="form-control" id="modules" th:field="*{modules}">
+       <th:block th:each="m:${modules}">
+        <option th:text="${m.nom}" th:value="${m.id}">
+        
+        
+        </option>
+        </th:block>
+    </select>
+  </div> 
+  <div class="form-group">
+    <label for="modules">Responsables</label>
+    <select  class="form-control" id="modules" th:field="*{user}">
+       <th:block th:each="r:${Etudiants}">
+        <option th:text="${r.nom}" th:value="${r.id}">
+        
+        
+        </option>
+        </th:block>
+    </select>
+  </div>  
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+
+
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>

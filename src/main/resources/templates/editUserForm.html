@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire de mise a jour des utilisateurs</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+   <script type="text/javascript" th:src="@{/test.js}"></script>
+ </head>
+<body >
+<div layout:fragment="content" >
+<div class="container mt-5 col-md-6">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header">
+Formulaire d'ajout
+
+</div>
+<div class="card-body">
+<form th:action="@{/users/editUser/__${user.id}__}" method="POST" class="needs-validation" th:object="${user}" enctype="multipart/form-data">
+   <div class="form-row">
+    <div class="form-group col-md-6">
+    
+    <input type="hidden" th:field="*{id}" name="id">
+      <label for="Nom">Nom</label>
+      <input type="text" class="form-control" id="Nom" th:field="*{nom}" placeholder="Nom" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="preNom">Prenom</label>
+      <input type="text" class="form-control" id="preNom" th:field="*{preNom}" placeholder="preNom" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="Email">E-mail</label>
+    <input type="email" required class="form-control" id="email" th:field="*{email}" placeholder="email">
+  </div>
+  <div class="form-group">
+    <label for="dateCreation">Date de creation</label>
+    <input type="date" required class="form-control" id="dateCreation" th:field="*{dateCreation}" placeholder="date de creation">
+  </div>
+   <div class="custom-file form-group">
+    <input type="file" class="custom-file-input" id="fileImage" name="fileImage" th:fied="*{iamge}" accept="image/png, image/jpeg">
+    <label class="custom-file-label" for="document">Choose image...</label>
+    <div class="invalid-feedback">Example invalid custom file feedback</div>
+    
+    <div>
+    <img style="width: 120px" id="thumbnail"  alt="logo preview" th:src="@{*{UserImagePath}}">
+    
+    <!--<img style="width: 120px" id="thumbnail" alt="logo preview">-->
+    </div>
+    
+    
+  </div>
+  
+  <div class="form-group mt-5">
+    <label for="Role">Roles: </label>
+      <select id="Role" class="form-control" th:field="*{roles}">
+        <th:block th:each="r:${listRoles}">
+        <option th:text="${r.name}" th:value="${r.id}">
+        </option>
+        </th:block>
+        
+      </select>
+     
+  </div>
+  
+  <div class="form-group" id="divcne">
+    <label for="Email">cne</label>
+    <input type="text" required class="form-control" th:field="*{cne}" th:value="${user.cne}" id="cne" name="cne" disabled="disabled" placeholder="cne">
+  </div> 
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+
+</script>
+
+</body>
+
+</html>

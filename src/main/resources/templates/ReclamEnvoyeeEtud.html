@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Reclamation Envoyees</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<style>
+.AnavH:hover{
+	text-decoration : none ;
+	color : white ;
+}
+.AnavV:hover{
+	text-decoration : none ;
+	color : white ;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: black;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+</style>
+</head>
+<body>
+
+<ul class="navH">
+  <li class="LiNavH" style="letter-spacing: 2px;"><a href="#home" class="AnavH">Espace Etudiant</a></li>
+ 
+  <li class="LiNavH" style="float:right ; letter-spacing : 2px;"><a class="AnavH">Bonjour Etudiant</a></li>
+</ul>
+
+
+<ul class="navV">
+  <li class="LinavV"><a class="AnavV" href="/3" id="active1" style="font-size : 14px ;"><i class="fa fa-fw fa-home" style="padding-right:7px; font-size:20px;"></i>Accuiel</a></li>
+  <li class="LinavV"><a href="/modules/3" class="AnavV" style="font-size : 14px ;"><i class="fa fa-book" style="padding-right:7px; font-size:20px;"></i>Modules</a></li>
+  <li class="LinavV"><a href="/notes/3" class="AnavV" style="font-size : 14px ;"><i class="fa fa-check-square-o" style="padding-right:7px; font-size:20px;"></i>Notes</a></li>
+  <li class="LinavV"><a href="/reclamationsP/3" class="AnavV" style="font-size : 14px ;"><i class="fa fa-fw fa-envelope" style="padding-right:7px; font-size:20px;"></i>Reclamations</a></li>
+  <li class="LinavV"><a href="#PFE" class="AnavV" style="font-size : 14px ;"><i class="fa fa-graduation-cap" style="padding-right:7px; font-size:20px;"></i>PFE</a></li>
+  <li class="LinavV"><a href="/infos/3" class="AnavV" style="font-size : 14px ;"><i class="fa fa-user-circle" style="padding-right:7px; font-size:20px;"></i>Profile</a></li>
+	 <li class="LinavV"><li class="LinavV">
+  
+  <form class=" AnavV form-inline my-2 my-lg-0" th:action="@{/logout}" style="font-size : 14px ;" method="post">
+   <!-- <span th:text ="${#authentication.getPrincipal().getUser().getNom()}"></span>-->
+   
+    <span class="nav-link"></span>
+    <i class="fa fa-sign-out" style="font-size:16px; font-color : white ; padding-right:7px;"></i>
+      <input type="submit" class="btn btn-submit" value="logout">
+    </form>
+    
+    </li>
+
+
+</ul>
+ 
+ <div style="background-color: #e8e8e8;  padding :2px; margin-top:48px; margin-left:17%; color : grey ;"><i class="fa fa-fw fa-home" style="padding-right:7px; font-size:20px; margin-left:4px;"></i>/ Reclamations / Reclamations envoyées</div>
+ 
+<div style="margin-left:25%;padding:1px 16px;height:1000px; margin-top:48px;">
+  
+
+<div align="center">
+    <br/><br/>
+    <table class="table align-middle" style="margin-right:10%; width:85%;">
+        <thead>
+            <tr>
+                
+                <th scope="col">Réclamation</th>
+                <th scope="col">Professeur</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="reclamationsE : ${listReclamationsE}">
+            <td>[[${reclamationsE.id_recl_etud}]]</td>
+            <td>[[${reclamationsE.professeur.nom}]]</td>
+            <td>[[${reclamationsE.dateCreation}]]</td>
+            <td>
+                    <a id="myBtn"><i class="fa fa-envelope-open" style="font-size:24px; color:#008fff; margin-left:20%;"></i></a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a th:href="@{'/deleteReclamEtud/' + ${reclamationsE.id_recl_etud}}"><i class="fa fa-trash" style="font-size:24px; color:red; margin-left:20%;"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>  
+</div> 
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p th:each="reclamationsE : ${listReclamationsE}">[[${reclamationsE.contenuReclEtud}]]</p>
+  </div>
+
+</div>
+
+
+
+<script>
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+
+</body>
+</html>

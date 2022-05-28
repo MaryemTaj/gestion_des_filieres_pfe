@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>	Liste des departements</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ </head>
+<body >
+<div layout:fragment="content" >
+<span th:if="${message}">
+<script>
+
+swal({
+	  title: "Good job!",
+	  icon: "success",
+	  showCloseButton: true
+	});
+
+</script>
+
+
+</span>
+<div class="container-fluid mt-3">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header d-flex justify-content-center">
+<h4>Liste Des cycles</h4>
+
+</div>
+<div class="card-body">
+<form methode="get" action="@{/departements}">
+<div class="d-flex justify-content-between">
+<div>
+<input type="text" name="keyword">
+<button class="btn btn-success btn-sm ">chercher </button></div>
+</form>
+<a  class="btn btn-primary"><span class="fa fa-plus"></span> </a>
+</div>
+
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom Cycles</th>
+       <th scope="col">Date</th>
+        <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr th:each="c:${cycles}">
+      <td th:text="${c.id}"></td>
+       <td th:text="${c.nom}"></td>
+       <td th:text="${#temporals.format(c.dateCreation,'EEE d MMM yyyy HH:mm')}"></td>
+          <td><a onclick="return confirm('Etes vous sur de vouloir supprimer')" class="btn btn-danger btn-sm" th:href="@{/deleteCycle(id=${c.id})}">Delete</a>
+          </td>
+      
+    </tr>
+   
+  </tbody>
+</table>
+<ul class="nav nav-pills">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage ?'btn btn-primary ':'btn'}" th:href="@{filieres(page=${status.index})}" th:text="${status.count}"></a>
+</li>
+</ul>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>	Liste des modules</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ </head>
+<body >
+<div layout:fragment="content" >
+<span th:if="${message}">
+<script>
+
+swal({
+	  title: "Good job!",
+	  icon: "success",
+	  showCloseButton: true
+	});
+
+</script>
+
+
+</span>
+<div class="container-fluid mt-3">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header d-flex justify-content-center">
+<h4>Liste Des Modules</h4>
+</div>
+<div class="card-body">
+<form methode="get" action="@{/modules}">
+<div class="d-flex justify-content-between">
+<div>
+<input type="text" name="keyword">
+<button class="btn btn-success btn-sm ">chercher </button></div>
+</form>
+<a  class="btn btn-primary" th:href=@{/newModule}><span class="fa fa-plus"></span> </a>
+</div>
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom Modules</th>
+      <th scope="col">Prof</th>
+       <th scope="col">Date de creation</th>
+      <th scope="col">Filiere</th>
+      
+        <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr th:each="m:${modules}">
+      <td th:text="${m.id_module}"></td>
+       <td th:text="${m.nom}"></td>
+     <td th:each="lm:${m.liste_mode}">[[${lm.prof.nom} +' ' +${lm.prof.preNom}]]</td>
+        <td th:each="lm:${m.liste_mode}">[[${lm.filiere.nom}]]</td>
+         <td th:each="lm:${m.liste_mode}">[[${lm.module.nom}]]</td>
+             <td th:text="${#temporals.format(m.dateCreation,'EEE d MMM yyyy HH:mm')}"></td>
+          <td><a onclick="return confirm('Etes vous sur de vouloir supprimer')" class="btn btn-danger btn-sm"th:href="@{/deleteModule(id=${m.id_module})}">Delete</a>
+          </td>
+    </tr>
+   
+  </tbody>
+</table>
+<ul class="nav nav-pills">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage ?'btn btn-primary ':'btn'}" th:href="@{filieres(page=${status.index})}" th:text="${status.count}"></a>
+</li>
+</ul>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+</body>
+</html>

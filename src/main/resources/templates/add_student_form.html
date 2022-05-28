@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire d'ajout des utilisateurs</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script type="text/javascript" th:src="@{/test.js}"></script>
+ </head>
+<body >
+<div layout:fragment="content" >
+<div class="container mt-5 col-md-6">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header">
+Formulaire d'ajout
+
+</div>
+<div class="card-body">
+<form th:action="@{/saveStudent}" method="POST" class="needs-validation" th:object="${Etudiant}" enctype="multipart/form-data">
+   <div class="form-row">
+    <div class="form-group col-md-6">
+    
+    <input type="hidden" th:field="*{id}" name="id">
+      <label for="Nom">Nom</label>
+      <input type="text" class="form-control" id="Nom" th:field="*{nom}" placeholder="Nom" required>
+      <span th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></span>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="preNom">Prenom</label>
+      <input type="text" class="form-control" id="preNom" th:field="*{preNom}" placeholder="preNom" required>
+        <span th:if="${#fields.hasErrors('preNom')}" th:errors="*{preNom}"></span>
+    </div>
+  </div>
+    <div class="form-row">
+  <div class="form-group col-md-6">
+    <label for="Email">E-mail</label>
+    <input type="email" required class="form-control" id="email" th:field="*{email}" placeholder="email">
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+  </div>
+<div class="form-group col-md-6">
+      <label for="CIN">CIN</label>
+      <input type="text" class="form-control" id="CIN" th:field="*{cin}" placeholder="cin" required>
+      <span th:if="${#fields.hasErrors('cin')}" th:errors="*{cin}"></span>
+    </div>
+  
+  </div>
+  <div class="custom-file form-group">
+    <input type="file" class="custom-file-input" id="fileImage" name="fileImage" th:fied="*{iamge}" accept="image/png, image/jpeg, image/jpg">
+    <label class="custom-file-label" for="document">Choose image...</label>
+    <div class="invalid-feedback">Example invalid custom file feedback</div>
+    <span th:if="${#fields.hasErrors('iamge')}" th:errors="*{iamge}"></span>
+  </div>
+  
+  <div class="form-row ">
+  <div class="col-md-6">
+    <label for="Role">Roles: </label>
+      <select id="Role" class="form-control" th:field="*{roles}">
+        <th:block th:each="r:${listRoles}">
+        <option th:text="${r.name}" th:value="${r.id}">
+        </option>
+        </th:block>
+        
+      </select>
+      
+      
+     </div>
+     <div class="col-md-6">
+    <label for="Filiere">Filiere: </label>
+      <select id="Filiere" class="form-control" th:field="*{filiere}">
+        <th:block th:each="r:${filieres}">
+        <option th:text="${r.nom}" th:value="${r.id_filiere}">
+        </option>
+        </th:block>
+        
+      </select>
+      
+      
+     </div>
+  </div>
+  
+  <div class="form-group" id="divcne">
+    <label for="Email">cne</label>
+    <input type="text" required class="form-control" th:field="*{cne}" id="cne" name="cne" placeholder="cne">
+    <span th:if="${#fields.hasErrors('cne')}" th:errors="*{cne}"></span>
+  </div> 
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+
+</script>
+
+</body>
+
+</html>

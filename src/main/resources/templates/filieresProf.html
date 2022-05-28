@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="ProfTemplate.html">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ </head>
+<body >
+<div layout:fragment="profContent" >
+
+<div class="container-fluid mt-3">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header d-flex justify-content-center">
+<h4>Liste Des Filieres</h4>
+
+</div>
+<div class="card-body">
+
+
+<form methode="get" th:action="@{/filieres}">
+<div class="d-flex justify-content-between">
+<div>
+<input type="text" name="keyword" th:value="${keyword}">
+<button class="btn btn-success btn-sm "><span class="fa fa-search"></span> </button></div>
+</form> 
+</div>
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Nom Filiere</th>
+      <th scope="col">Cycle</th>
+      <th scope="col">Departement</th>
+       <th scope="col">Date</th>
+    
+        <th scope="col">Liste Des etudiant</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr th:each="p:${filieres}">
+      <td th:text="${p.id_filiere}"></td>
+       <td th:text="${p.nom}"></td>
+        <td th:text="${p.cyc.nom}"></td>
+         <td th:text="${p.dept.nom}"></td>
+          <td th:text="${#temporals.format(p.dateCreation,'EEE d MMM yyyy HH:mm')}"></td>
+          <td><a th:href="@{'/showEtudiantsProf/' + ${p.id_filiere}}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a></td>
+      
+         
+          
+          
+              
+   
+          
+          
+          
+          
+          
+          
+          
+          
+         
+      
+    </tr>
+   
+  </tbody>
+</table>
+<ul class="nav nav-pills">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage ?'btn btn-primary ':'btn'}"
+ th:href="@{filieres(page=${status.index},keyword=${keyword},size=${size})}" th:text="${status.count}"></a>
+</li>
+</ul>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire d'ajout des departements</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+   <script type="text/javascript" th:src="@{/test.js}"></script>
+ </head>
+<body >
+<div layout:fragment="content" >
+<div class="container mt-5 col-md-6">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header">
+Formulaire d'ajout des departements
+
+</div>
+<div class="card-body">
+<form th:action="@{/saveDepartement}" method="POST" class="needs-validation" th:object="${departements}">
+  <div class="form-group">
+    <label for="Nom">Nom</label>
+    <input type="text" required class="form-control" id="nom" th:field="*{nom}" placeholder="nom">
+  </div>
+  
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+
+</script>
+
+</body>
+
+</html>

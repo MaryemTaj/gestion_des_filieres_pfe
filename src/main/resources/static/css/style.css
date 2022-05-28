@@ -1,0 +1,116 @@
+
+body{
+	margin :0;
+}
+.navH {
+  position: fixed;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width: 100%;
+  top: 0;
+  
+}
+
+.LiNavH {
+  float: left;
+}
+
+.AnavH {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+
+#active {
+  background-color: #317ffe;
+}
+
+/*..............................................*/
+
+
+
+.navV {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 17%;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.AnavV {
+  display: block;
+  color: #000;
+  padding: 15px 16px;
+  text-decoration: none;
+  letter-spacing : 2px ;
+}
+
+#active1 {
+  background-color: #58a7fc;
+  color: white;
+}
+
+.AnavV:hover:not(#active1) {
+  background-color: #555;
+  color: white;
+}
+
+/*........................................................................*/
+
+/* .table {
+  border-collapse: collapse;
+  width: 90%;
+  margin-right:10%;
+}
+
+.table th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table tr:hover {background-color:#f5f5f5;}
+
+..........................................................................
+
+
+.table1 {
+  border-collapse: collapse;
+   width: 90%;
+  margin-right:10%;
+}
+
+.table1 th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+.table1 tr:nth-child(even) {background-color: #f2f2f2;} */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

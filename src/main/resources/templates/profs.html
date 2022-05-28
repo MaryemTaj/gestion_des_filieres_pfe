@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>	Liste des utilisateurs</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ </head>
+<body >
+<div layout:fragment="content" >
+<span th:if="${message}">
+<script>
+
+swal({
+	  title: "Good job!",
+	  icon: "success",
+	  showCloseButton: true
+	});
+
+</script>
+
+
+</span>
+<div class="container-fluid mt-3">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header d-flex justify-content-center">
+<h4>Liste Des Professeurs</h4>
+
+</div>
+<div class="card-body">
+<form methode="get" action="@{/users}">
+<div class="d-flex justify-content-between">
+<div>
+<input type="text" name="keyword">
+<button class="btn btn-success btn-sm ">chercher </button></div>
+</form>
+<a  class="btn btn-primary" th:href=@{/professeurs/newProfesseur}><span class="fa fa-plus"></span> </a>
+</div>
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Img</th>
+      <th scope="col">Nom</th>
+       <th scope="col">Prenom</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Module</th>
+        <th scope="col">Filiere</th>
+         <th scope="col">Semestre</th>
+         <th scope="col">Date</th>
+        <th scope="col">Actions</th>
+        
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr th:each="p:${profs}">
+     <td >[[${p.id}]]</td>
+      <td ><img style="width: 120px" alt="" th:src="@{${p.UserImagePath}}"> </td>
+      <td >[[${p.nom}]]</td>
+       <td >[[${p.preNom}]]</td>
+        <td >[[${p.email}]]</td>
+        
+      <td >[[${p.roles}]]</td> 
+      <td th:each="lm:${p.liste_modules}"><span >[[${lm.filiere.nom}]]</span></td>
+      <td th:each="lm:${p.liste_modules}"><span >[[${lm.module}]]</span></td>
+      
+       <td th:text="${#temporals.format(p.dateCreation,'EEEE d MMMM yyyy'+'|'+' HH:mm')}"></td>
+     
+     <td><a onclick="return confirm('Etes vous sur de vouloir supprimer')" class="btn btn-danger btn-sm" th:href="@{/deleteProf(id=${p.id})}"><span class="fa fa-remove"></span></a>
+          <a th:href="@{'users/editUser/' + ${p.id}}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+          
+          
+              
+     
+    
+      
+         
+    </tr>
+   
+  </tbody>
+</table>
+<ul class="nav nav-pills">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage ?'btn btn-primary ':'btn'}" th:href="@{filieres(page=${status.index})}" th:text="${status.count}"></a>
+</li>
+</ul>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+<script>
+
+
+
+</script>
+</body>
+</html>

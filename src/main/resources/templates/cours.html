@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="ProfTemplate.html">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="webjars/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ </head>
+<body >
+<div layout:fragment="profContent" >
+<div class="container-fluid mt-3">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header d-flex justify-content-center">
+<h4>Liste Des Cours</h4>
+
+</div>
+<div class="card-body">
+
+
+<form methode="get" th:action="@{/cours}">
+<div class="d-flex justify-content-between">
+<div>
+<input type="text" name="keyword" th:value="${keyword}">
+<button class="btn btn-success btn-sm "><span class="fa fa-search"></span> </button></div>
+</form> 
+<a  class="btn btn-primary" th:href= "@{'/findFiliereProf/'+${#authentication.getPrincipal().getUser().getId()}}"><span class="fa fa-plus"></span> </a>
+</div>
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Fichier cours</th>
+      <th scope="col">Nom cours</th>
+      <th scope="col">Type cours</th>
+       <th scope="col">Modules</th>
+       <th scope="col">Prof</th>
+       
+        <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr th:each="c:${cours}">
+      <td th:text="${c.id_cours}"></td>
+       <td ><i class="fa fa-file-text" aria-hidden="true"></i> 
+       <a th:href="@{'/download?id='+${c.id_cours}}">[[${c.nomDocument}]]</a>
+       ([[${#numbers.formatInteger(c.documentSize,4,'COMMA')}]] bytes)
+       
+       
+       </td>
+       
+        <td th:text="${c.nom}"></td>
+         <td th:text="${c.type_cours}"></td>
+         <td th:text="${c.module}"></td>
+          <td th:each=" lm:${c.module.liste_mode}" th:text="${lm.prof.id}"></td>
+         
+         
+          <td><a onclick="return confirm('Etes vous sur de vouloir supprimer')" class="btn btn-danger btn-sm" ><span class="fa fa-remove"></span></a>
+          <a  class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+          
+          
+              
+   
+          
+          
+          
+          
+          
+          
+          
+          
+          </td>
+      
+    </tr>
+   
+  </tbody>
+</table>
+<ul class="nav nav-pills">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage ?'btn btn-primary ':'btn'}"
+ th:href="@{filieres(page=${status.index},keyword=${keyword},size=${size})}" th:text="${status.count}"></a>
+</li>
+</ul>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+
+</body>
+</html>

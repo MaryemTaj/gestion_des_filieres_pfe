@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="ProfTemplate.html">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire d'ajout des cours</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+ </head>
+<body >
+<div layout:fragment="profContent" >
+<div class="container mt-5 col-md-6">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header">
+Formulaire d'ajout des cours
+
+</div>
+<div class="card-body">
+<form th:action="@{/saveCours}" method="POST" class="needs-validation" th:object="${cours}" enctype="multipart/form-data">
+   <div class="form-row">
+    <div class="form-group col-md-6">
+       <label for="nomCour">Nom cour</label>
+      <input type="text" class="form-control" id="nomCour" th:field="*{nom}" placeholder="nom cour" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="typeCours">Type cour</label>
+      <input type="text" class="form-control" id="typeCours" th:field="*{type_cours}" placeholder="type cour" required>
+    </div>
+  </div>
+  
+  
+  <div class="form-group">
+    <div class="custom-file">
+    <input type="file" class="custom-file-input" id="file" name="file">
+    <label class="custom-file-label" for="document">Choose file...</label>
+    <div class="invalid-feedback">Example invalid custom file feedback</div>
+  </div>
+  <div class="form-group">
+    <label for="Role">module </label>
+      <select id="Role" class="form-control" th:field="*{module}">
+        <th:block th:each="m:${listesModules}">
+        <option th:text="${m.nom_module}" th:value="${m.id_module}">
+        </option>
+        </th:block>
+       </select>
+       <span th:error="*{module}" class="text-danger"></span>
+  </div>
+     
+  </div>
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+
+</script>
+
+</body>
+
+</html>

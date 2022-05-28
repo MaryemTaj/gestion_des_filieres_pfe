@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire d'insertion des patients</title>
+ </head>
+<body >
+<div layout:fragment="content" >
+<div class="container mt-5 col-md-6">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header">
+Formulaire d'ajout
+
+</div>
+<div class="card-body">
+<form th:action="@{/saveFiliere}" method="POST" class="needs-validation" th:object="${filiere}">
+<input type="hidden" th:value="${filiere.id_filiere}"  th:field="*{id_filiere}">
+  <div class="form-group">
+    <label for="departement">Departement</label>
+      <select id="departement" class="form-control" th:field="*{dept}">
+        <th:block th:each="d:${departements}">
+        <option th:text="${d.nom}" th:value="${d.id}">
+        </option>
+        </th:block>
+        
+      </select>
+      <span th:if="${#fields.hasErrors('dept')}" th:errors="*{dept}"></span>
+  </div>
+   <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="NomFiliere">Noml</label>
+      <input type="text" class="form-control" id="NomFiliere" th:field="*{nom}" th:value="${filiere.nom}" placeholder="Nom">
+      
+      <p th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></p>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="cycle">Cycle</label>
+     <select id="departement" class="form-control" th:value="${filiere.cyc}" th:field="*{cyc}" required>
+        <th:block th:each="d:${cycles}">
+        <option th:text="${d.nom}" th:value="${d.id}">
+        
+        
+        </option>
+        </th:block>
+      </select>
+    </div>
+  </div>
+  
+
+
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+
+</body>
+</html>

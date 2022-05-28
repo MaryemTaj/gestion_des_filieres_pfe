@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>	Liste des Etudiants</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+ </head>
+<body >
+
+<div layout:fragment="content" >
+<span th:if="${message}">
+<script>
+
+swal({
+	  title: "Good job!",
+	  icon: "success",
+	  showCloseButton: true
+	});
+
+</script>
+
+
+</span>
+<div class="container-fluid mt-3">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header d-flex justify-content-center">
+<h4>Liste Des Etudiants</h4>
+
+</div>
+<div class="card-body">
+<form methode="get" action="@{/users}">
+<div class="d-flex justify-content-between">
+<div>
+<input type="text" name="keyword">
+<button class="btn btn-success btn-sm ">chercher </button></div>
+</form>
+<a  class="btn btn-primary" th:href=@{etudiants/newEtudiants}><span class="fa fa-plus"></span> </a>
+</div>
+</div>
+
+<table class="table table-hover mt-3">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Img</th>
+      <th scope="col">Nom</th>
+       <th scope="col">Prenom</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">CNE</th>
+        <th scope="col">Date</th>
+        <th scope="col">Actions</th>
+        
+    </tr>
+  </thead>
+  <tbody>
+  
+    <tr th:each="e:${etudiants}">
+     <td >[[${e.id}]]</td>
+     <td ><img style="width: 120px" alt="" th:src="@{${e.UserImagePath}}"> </td>
+      <td >[[${e.nom}]]</td>
+       <td >[[${e.preNom}]]</td>
+        <td >[[${e.email}]]</td>
+     <td >[[${e.roles}]]</td>
+     <td>[[${e.cne}]]</td>
+    <td th:text="${#temporals.format(e.dateCreation,'EEE d MMM yyyy HH:mm')}"></td>
+     <td><a onclick="return confirm('Etes vous sur de vouloir supprimer')" class="btn btn-danger btn-sm" th:href="@{/deleteUser(id=${e.id})}"><span class="fa fa-remove"></span></a>
+          <a th:href="@{'users/editUser/' + ${e.id}}" class="btn btn-success btn-sm"><span class="fa fa-edit"></span></a>
+          
+          
+              
+     
+    
+      
+         
+    </tr>
+   
+  </tbody>
+</table>
+<ul class="nav nav-pills">
+<li  th:each="page,status:${pages}">
+<a th:class="${status.index==currentPage ?'btn btn-primary ':'btn'}" th:href="@{filieres(page=${status.index})}" th:text="${status.count}"></a>
+</li>
+</ul>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+
+
+</div>
+</body>
+</html>

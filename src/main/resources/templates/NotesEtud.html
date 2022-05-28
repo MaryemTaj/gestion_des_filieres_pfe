@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>Notes</title>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<style>
+.AnavH:hover{
+	text-decoration : none ;
+	color : white ;
+}
+.AnavV:hover{
+	text-decoration : none ;
+	color : white ;
+}
+
+</style>
+</head>
+<body>
+
+<ul class="navH">
+  <li class="LiNavH" style="letter-spacing: 2px;"><a href="#home" class="AnavH">Espace Etudiant</a></li>
+  
+  <li class="LiNavH" style="float:right ; letter-spacing : 2px;"><a class="AnavH">Bonjour Etudiant</a></li>
+</ul>
+
+<ul class="navV">
+  <li class="LinavV"><a class="AnavV" href="/infosEtudiants/1" id="active1" style="font-size : 14px ;"><i class="fa fa-fw fa-home" style="padding-right:7px; font-size:20px;"></i>Accuiel</a></li>
+  <li class="LinavV"><a href="/modules/1" class="AnavV" style="font-size : 14px ;"><i class="fa fa-book" style="padding-right:7px; font-size:20px;"></i>Modules</a></li>
+  <li class="LinavV"><a href="/notes_Etud/1" class="AnavV" style="font-size : 14px ;"><i class="fa fa-check-square-o" style="padding-right:7px; font-size:20px;"></i>Notes</a></li>
+  <li class="LinavV"><a href="/reclamationsP/1" class="AnavV" style="font-size : 14px ;"><i class="fa fa-fw fa-envelope" style="padding-right:7px; font-size:20px;"></i>Reclamations</a></li>
+  <li class="LinavV"><a href="#PFE" class="AnavV" style="font-size : 14px ;"><i class="fa fa-graduation-cap" style="padding-right:7px; font-size:20px;"></i>PFE</a></li>
+  <li class="LinavV"><a href="/infos/1" class="AnavV" style="font-size : 14px ;"><i class="fa fa-user-circle" style="padding-right:7px; font-size:20px;"></i>Profile</a></li>
+ <li class="LinavV"><li class="LinavV">
+  
+  <form class=" AnavV form-inline my-2 my-lg-0" th:action="@{/logout}" style="font-size : 14px ;" method="post">
+   <!-- <span th:text ="${#authentication.getPrincipal().getUser().getNom()}"></span>-->
+   
+    <span class="nav-link"></span>
+    <i class="fa fa-sign-out" style="font-size:16px; font-color : white ; padding-right:7px;"></i>
+      <input type="submit" class="btn btn-submit" value="logout">
+    </form>
+    
+    </li>
+
+</ul>
+ 
+<div style="background-color: #e8e8e8;  padding :2px; margin-top:48px; margin-left:17%; color : grey ;"><i class="fa fa-fw fa-home" style="padding-right:7px; font-size:20px; margin-left:4px;"></i>/ Tableau des notes</div>
+ 
+<div style="margin-left:25%;padding:1px 16px;height:1000px; margin-top:48px;">
+  
+
+<div align="center">
+    <br/><br/>
+    <table class="table align-middle" style="margin-right:10%; width:85%;">
+        <thead>
+            <tr>
+                 <th scope="col">intitulé du module</th>
+                 <th scope="col">Note normale</th>
+                 <th scope="col">Note rattrapage	</th>
+                                
+            </tr>
+        </thead>
+        <tbody>
+            <th:block th:each="note : ${listeNotes}">
+            <tr>
+            <td>[[${note.module.nom}]]</td>
+            <td>[[${note.note_normale}]]</td>
+            <td>[[${note.note_ratt}]]</td>
+            </tr>
+            </th:block>
+        </tbody>
+    </table>
+</div>
+</div>   
+</body>
+</html>

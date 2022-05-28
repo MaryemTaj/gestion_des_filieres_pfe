@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="template1.html">
+<head>
+<meta charset="UTF-8">
+<title>Formulaire d'ajout des cours</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+ </head>
+<body >
+<div layout:fragment="content" >
+<div class="container mt-5 col-md-6">
+<div class="card shadow p-3 mb-5 bg-white rounded">
+<div class="card-header">
+Formulaire de repondre aux reclamations
+
+</div>
+<div class="card-body">
+<form th:action="@{/saveReponseReclamationEtudiant}" method="POST" class="needs-validation" th:object="${reponseReclamation}">
+   
+    <div class="form-group ">
+     
+    <label for="Etudiants">Etudiants: </label>
+      <select  id="Etudiants" class="form-control" th:field="*{etudiant}">
+        <th:block th:each="e:${listEtudiants}">
+        <option th:text="${e.nom}" th:value="${e.id}">
+        </option>
+        </th:block>
+      </select>
+    </div>
+    <div class="form-group">
+  			<label for="comment">Reponse:</label>
+ 			 <textarea class="form-control" rows="5" th:field=*{contenuReclProf} id="comment"></textarea>
+			</div>
+       		 </div>
+  <button type="submit" class="btn btn-primary">submit</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</div>
+<script type="text/javascript">
+
+
+</script>
+
+</body>
+
+</html>
